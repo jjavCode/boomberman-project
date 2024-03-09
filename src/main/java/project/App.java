@@ -1,29 +1,37 @@
 package project;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
+/**
+ * JavaFX App
+ */
 public class App extends Application {
 
     private static Scene scene;
+    @SuppressWarnings("unused")
+    private static Initializable currentController;
 
-    @SuppressWarnings("exports")
+
     @Override
+    public void start(Stage primaryStage) throws IOException {
+        scene = new Scene(loadFXML("primary"), 1280, 720);
+            Image icon = 
+                new Image(getClass().   getResourceAsStream("/boomberman-icon.png"));
 
-    public void start(Stage stage) throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource("primaryButton.fxml"));
-        Parent root = fxmlLoader.load();
-        
-        Scene scene = new Scene(root);
-        
-        stage.setScene(scene);
-        stage.show();
+        primaryStage.setTitle("Kaboom main");
+        primaryStage.getIcons().add(icon);
+        primaryStage.setScene(scene);
+        primaryStage.setResizable(true);
+        primaryStage.show();
     }
 
     static void setRoot(String fxml) throws IOException {
@@ -31,12 +39,25 @@ public class App extends Application {
     }
 
     private static Parent loadFXML(String fxml) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(App.class.getResource(fxml + ".fxml"));
-        return fxmlLoader.load();
+        FXMLLoader fxmlLoader =
+        new FXMLLoader(App.class.getResource(fxml + ".fxml"));
+
+        Parent root = fxmlLoader.load();
+        currentController = fxmlLoader.getController();
+
+        return root;
     }
 
     public static void main(String[] args) {
-        launch();
+        launch(args);
+    }
+
+    public static Scene getScene() {
+        return scene;
+    }
+
+    public static void setScene(Scene scene) {
+        App.scene = scene;
     }
 
 }
