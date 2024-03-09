@@ -1,5 +1,7 @@
 package project;
 
+import java.io.IOException;
+
 import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,6 +18,7 @@ import javafx.stage.Stage;
  */
 public class App extends Application {
 
+    @FXML private VBox box;
     private static Scene scene;
     @SuppressWarnings("unused")
     private static Initializable currentController;
